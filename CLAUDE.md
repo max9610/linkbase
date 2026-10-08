@@ -27,3 +27,12 @@ Freshly scaffolded with `create-next-app`; `src/app/page.tsx` and the `metadata`
 - **Tailwind CSS v4** is wired through a Turbopack loader rule (`@tailwindcss/turbopack` on `*.css`) in `next.config.ts` — there is no `postcss.config` or `tailwind.config`. Theme tokens are defined in `src/app/globals.css` via `@theme inline` (`--color-background`, `--color-foreground`, Geist font variables); dark mode follows `prefers-color-scheme`.
 - Route components use Next's global typed helpers (e.g. `LayoutProps<"/">`) generated into `.next/types` — no import needed.
 - Path alias: `@/*` → `src/*`.
+
+## Doc Convention
+
+Whenever a new file is created in `docs/`, add it to the Project docs list below with one line on what it covers and when to read it.
+
+### Project docs
+
+- `docs/design-system.md`: design tokens (colors, typography, spacing, radius, shadows, breakpoints, motion) and the Tailwind v4 `@theme` setup. Read it before writing styles or changing `globals.css`.
+- `docs/ui.md`: component specs (Button, Input, LinkButton, LinkCard, NavRail…), page layouts (`/[username]`, `/admin`, `/register/username`, `/`), icon libraries and accessibility rules. Read it before building or changing any UI component or page.
