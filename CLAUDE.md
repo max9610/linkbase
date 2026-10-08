@@ -34,5 +34,8 @@ Whenever a new file is created in `docs/`, add it to the Project docs list below
 
 ### Project docs
 
+- `docs/architecture.md`: rendering model (Server vs Client Components, Server Actions), folder structure (`app/`, `components/ui`, `components/[feature]`, `lib/`) and naming conventions. Read it before creating any new file, route or Server Action.
+- `docs/database.md`: Mongoose setup, the single cached connection helper, model conventions (strict, timestamps, `userId`/`handle` indexes) and per-user query scoping. Read it before writing any model, query or Server Action that touches data.
+
 - `docs/design-system.md`: design tokens (colors, typography, spacing, radius, shadows, breakpoints, motion) and the Tailwind v4 `@theme` setup. Read it before writing styles or changing `globals.css`.
 - `docs/ui.md`: component specs (Button, Input, LinkButton, LinkCard, NavRail…), page layouts (`/[username]`, `/admin`, `/register/username`, `/`), icon libraries and accessibility rules. Read it before building or changing any UI component or page.
