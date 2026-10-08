@@ -43,7 +43,7 @@ Models live in `lib/db/models/`. Every schema uses:
 
 - **Strict mode** (`strict: true`, Mongoose's default; never turn it off). Fields that are not in the schema are dropped.
 - **Timestamps** (`timestamps: true`), which adds `createdAt` and `updatedAt`.
-- **Indexes on `userId` and `handle`.** `handle` is the public username in `/[username]`, so its index is unique.
+- **Indexes on `userId` and `handle`.** `handle` is the public username in `/user/[handle]`, so its index is unique.
 
 Reuse the compiled model if it exists (`models.X ?? model(...)`). Otherwise hot reload throws `OverwriteModelError`.
 
@@ -53,7 +53,12 @@ import { Schema, model, models, type InferSchemaType } from "mongoose";
 
 const linkSchema = new Schema(
   {
-    userId: { type: Schema.Types.ObjectId, ref: "User", required: true, index: true },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+      index: true,
+    },
     title: { type: String, required: true, trim: true },
     url: { type: String, required: true, trim: true },
   },
@@ -83,4 +88,4 @@ export const deleteLink = async (linkId: string) => {
 };
 ```
 
-The one exception is the public profile `/[username]`, which reads published data by `handle`. Only fields that are meant to be public may be returned there.
+The one exception is the public profile `/user/[handle]`, which reads published data by `handle`. Only fields that are meant to be public may be returned there.

@@ -32,8 +32,8 @@ src/
 
 ## Naming
 
-| What | Convention | Example |
-|---|---|---|
-| Files and folders | kebab-case | `link-card.tsx`, `lib/auth/get-session.ts` |
-| React components | PascalCase | `export function LinkCard()` |
-| Server Actions | verb-first camelCase | `createLink`, `updateProfile`, `deleteLink` |
+| What              | Convention           | Example                                     |
+| ----------------- | -------------------- | ------------------------------------------- |
+| Files and folders | kebab-case           | `link-card.tsx`, `lib/auth/get-session.ts`  |
+| React components  | PascalCase           | `export function LinkCard()`                |
+| Server Actions    | verb-first camelCase | `createLink`, `updateProfile`, `deleteLink` |

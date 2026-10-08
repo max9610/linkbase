@@ -13,8 +13,11 @@ npm run dev      # dev server (Turbopack) on http://localhost:3000
 npm run build    # production build — also type-checks
 npm run start    # serve the production build
 npm run lint     # ESLint (flat config, eslint-config-next core-web-vitals + typescript)
+npm run format   # Prettier --write (format:check to only verify)
 npx tsc --noEmit # type-check only
 ```
+
+Prettier uses default options (`.prettierrc` is `{}`). `docs/design-system.md` and `docs/ui.md` are in `.prettierignore` so their hand-written formatting is kept.
 
 No test framework is configured yet.
 
@@ -36,6 +39,9 @@ Whenever a new file is created in `docs/`, add it to the Project docs list below
 
 - `docs/architecture.md`: rendering model (Server vs Client Components, Server Actions), folder structure (`app/`, `components/ui`, `components/[feature]`, `lib/`) and naming conventions. Read it before creating any new file, route or Server Action.
 - `docs/database.md`: Mongoose setup, the single cached connection helper, model conventions (strict, timestamps, `userId`/`handle` indexes) and per-user query scoping. Read it before writing any model, query or Server Action that touches data.
+- `docs/auth.md`: NextAuth setup, protected `(dashboard)` routes vs public `/user/[handle]`, the three enforcement layers (`proxy.ts`, dashboard layout, `requireUser()` in every Server Action) and ownership rules. Read it before adding a route, a Server Action or anything that reads the session.
+- `docs/routing.md`: route map (public `/` and `/user/[handle]`, `(auth)` and protected `(dashboard)` groups), per-route `layout`/`loading`/`error` files, and Route Handlers (webhooks/callbacks only) vs Server Actions. Read it before adding or moving a page, layout or API route.
+- `docs/coding-standards.md`: TypeScript strict, Prettier + ESLint, import order, component style (function declarations, typed props, named exports), async/await, `Error` objects, no `any`/unexplained `@ts-ignore`. Read it before writing any code.
 
 - `docs/design-system.md`: design tokens (colors, typography, spacing, radius, shadows, breakpoints, motion) and the Tailwind v4 `@theme` setup. Read it before writing styles or changing `globals.css`.
 - `docs/ui.md`: component specs (Button, Input, LinkButton, LinkCard, NavRail…), page layouts (`/[username]`, `/admin`, `/register/username`, `/`), icon libraries and accessibility rules. Read it before building or changing any UI component or page.
