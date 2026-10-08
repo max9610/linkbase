@@ -1,0 +1,7 @@
+.next
+node_modules
+out
+build
+package-lock.json
+docs/design-system.md
+docs/ui.md
