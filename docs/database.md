@@ -11,7 +11,8 @@ All paths below are relative to `src/`.
 ```
 src/lib/db/
 ├── connect.ts      # connection helper (single cached connection)
-└── models/         # one file per model, kebab-case (link.ts, user.ts…)
+├── models/         # one file per model, kebab-case (link.ts, user.ts…)
+└── queries/        # cached read functions (see data-fetching.md)
 ```
 
 ## Connection
