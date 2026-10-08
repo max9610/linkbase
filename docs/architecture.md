@@ -23,10 +23,11 @@ src/
 └── lib/
     ├── db/               # database client
     ├── auth/             # auth helpers
-    └── types/            # shared TypeScript types
+    ├── types/            # shared TypeScript types
+    └── validation/       # shared Zod schemas
 ```
 
-- **`lib/`** holds shared, non-UI code. The database client, auth helpers and types each live in their own folder.
+- **`lib/`** holds shared, non-UI code. The database client, auth helpers, types and validation schemas each live in their own folder.
 - **`components/ui/`** holds generic primitives with no feature knowledge. Their specs are in `ui.md`.
 - **`components/[feature]/`** holds components for one feature (for example `components/dashboard/`). They can use `components/ui/` and `lib/`, but `components/ui/` never imports from a feature folder.
 
