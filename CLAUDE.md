@@ -13,8 +13,11 @@ npm run dev      # dev server (Turbopack) on http://localhost:3000
 npm run build    # production build — also type-checks
 npm run start    # serve the production build
 npm run lint     # ESLint (flat config, eslint-config-next core-web-vitals + typescript)
+npm run format   # Prettier --write (format:check to only verify)
 npx tsc --noEmit # type-check only
 ```
+
+Prettier uses default options (`.prettierrc` is `{}`). `docs/design-system.md` and `docs/ui.md` are in `.prettierignore` so their hand-written formatting is kept.
 
 No test framework is configured yet.
 
@@ -27,3 +30,28 @@ Freshly scaffolded with `create-next-app`; `src/app/page.tsx` and the `metadata`
 - **Tailwind CSS v4** is wired through a Turbopack loader rule (`@tailwindcss/turbopack` on `*.css`) in `next.config.ts` — there is no `postcss.config` or `tailwind.config`. Theme tokens are defined in `src/app/globals.css` via `@theme inline` (`--color-background`, `--color-foreground`, Geist font variables); dark mode follows `prefers-color-scheme`.
 - Route components use Next's global typed helpers (e.g. `LayoutProps<"/">`) generated into `.next/types` — no import needed.
 - Path alias: `@/*` → `src/*`.
+
+## Live Docs (Context7)
+
+Before writing code that uses Next.js, Mongoose, NextAuth, Zod, Tailwind CSS or any other third-party library, pull its current docs through the Context7 MCP server first (`resolve-library-id`, then `query-docs`). Do not rely on training data for API signatures, configuration options or version-specific behavior — check against the versions pinned in `package.json`. For Next.js, also follow `AGENTS.md` and read the bundled `node_modules/next/dist/docs/`.
+
+If Context7 has no entry for a library, say so explicitly before proceeding, and state what source is being used instead (bundled docs in `node_modules`, the library's official site, or type definitions).
+
+## Doc Convention
+
+Whenever a new file is created in `docs/`, add it to the Project docs list below with one line on what it covers and when to read it.
+
+### Project docs
+
+- `docs/architecture.md`: rendering model (Server vs Client Components, Server Actions), folder structure (`app/`, `components/ui`, `components/[feature]`, `lib/`) and naming conventions. Read it before creating any new file, route or Server Action.
+- `docs/database.md`: Mongoose setup, the single cached connection helper, model conventions (strict, timestamps, `userId`/`handle` indexes) and per-user query scoping. Read it before writing any model, query or Server Action that touches data.
+- `docs/auth.md`: NextAuth setup, protected `(dashboard)` routes vs public `/user/[handle]`, the three enforcement layers (`proxy.ts`, dashboard layout, `requireUser()` in every Server Action) and ownership rules. Read it before adding a route, a Server Action or anything that reads the session.
+- `docs/routing.md`: route map (public `/` and `/user/[handle]`, `(auth)` and protected `(dashboard)` groups), per-route `layout`/`loading`/`error` files, and Route Handlers (webhooks/callbacks only) vs Server Actions. Read it before adding or moving a page, layout or API route.
+- `docs/errors-and-validation.md`: Zod validation at the Server Action boundary (`lib/validation/`), the typed `ActionResult` for inline field errors, thrown unexpected errors caught by `error.tsx` and logged, and what the client may never see. Read it before writing any Server Action, form or `error.tsx`.
+- `docs/coding-standards.md`: TypeScript strict, Prettier + ESLint, import order, component style (function declarations, typed props, named exports), async/await, `Error` objects, no `any`/unexplained `@ts-ignore`. Read it before writing any code.
+- `docs/data-fetching.md`: reads in Server Components straight from the database (`lib/db/queries/`), `userId`/`handle` scoping, `"use cache"` + `cacheTag` (not `unstable_cache`), and clearing tags with `updateTag`/`revalidateTag` after mutations. Read it before writing any page that loads data or any Server Action that changes it.
+- `docs/data-mutations.md`: writes only through Server Actions, the five steps every action follows (session → Zod → scoped query → write → revalidate), `ActionResult` for expected failures, and which views to refresh. Read it before writing or changing any Server Action.
+- `docs/security.md`: secrets in env vars (`.env.local` gitignored, `.env.example` committed), CSP/X-Frame-Options/Referrer-Policy in `next.config.ts`, rate limits on sign-in and link creation, escaping user content, http(s)-only link URLs and `rel="noopener noreferrer"` on outbound links. Read it before adding an env var, a header, a form/Server Action or anything that renders user content.
+- `docs/git-conventions.md`: Conventional Commits (`feat`, `fix`, `docs`, `refactor`, `test`, `chore`) with short imperative subjects, `<type>/<feature>` branch names, one branch per feature, no direct commits to `main`, squash-merged PRs that require human review. Read it before creating a branch, commit or PR.
+- `docs/design-system.md`: design tokens (colors, typography, spacing, radius, shadows, breakpoints, motion) and the Tailwind v4 `@theme` setup. Read it before writing styles or changing `globals.css`.
+- `docs/ui.md`: component specs (Button, Input, LinkButton, LinkCard, NavRail…), page layouts (`/[username]`, `/admin`, `/register/username`, `/`), icon libraries and accessibility rules. Read it before building or changing any UI component or page.
