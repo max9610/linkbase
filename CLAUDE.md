@@ -31,6 +31,12 @@ Freshly scaffolded with `create-next-app`; `src/app/page.tsx` and the `metadata`
 - Route components use Next's global typed helpers (e.g. `LayoutProps<"/">`) generated into `.next/types` — no import needed.
 - Path alias: `@/*` → `src/*`.
 
+## Live Docs (Context7)
+
+Before writing code that uses Next.js, Mongoose, NextAuth, Zod, Tailwind CSS or any other third-party library, pull its current docs through the Context7 MCP server first (`resolve-library-id`, then `query-docs`). Do not rely on training data for API signatures, configuration options or version-specific behavior — check against the versions pinned in `package.json`. For Next.js, also follow `AGENTS.md` and read the bundled `node_modules/next/dist/docs/`.
+
+If Context7 has no entry for a library, say so explicitly before proceeding, and state what source is being used instead (bundled docs in `node_modules`, the library's official site, or type definitions).
+
 ## Doc Convention
 
 Whenever a new file is created in `docs/`, add it to the Project docs list below with one line on what it covers and when to read it.
